@@ -1,0 +1,7 @@
+{
+  "name": "claude-workflow-skills",
+  "description": "Battle-tested development workflow skills: plan-guarded, bugfix, review-checklist with automatic chaining",
+  "author": {
+    "name": "cukas"
+  }
+}
