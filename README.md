@@ -1,17 +1,17 @@
 # Claude Workflow Skills
 
-Battle-tested development workflow skills for Claude Code. Born from 451 sessions of real-world audio plugin development.
+Guarded development workflows for Claude Code. Investigation before fixes. Orchestration before implementation. Verification before completion.
 
 ## Skills
 
-### `/plan-guarded`
-Two-phase workflow with regression guards. Plan first, get approval, then implement one file at a time with type-check and test checkpoints after each change. Automatically chains into review-checklist when done.
+### `/build-guard`
+Orchestrated multi-file implementation. Plans in plan mode (read-only), then implements with subagent dispatch for larger changes. Type-check after every file, test gate every 3 files, stop-on-failure analysis. For big plans that consume context, hands off and resumes with full budget.
 
-### `/bugfix`
-Test-driven bug fix loop. Write a failing test first, then iterate fix > test > fix until all tests pass. No hand-holding — runs autonomously and only surfaces when everything is green.
+### `/trace-fix`
+Investigation-first bug fixing. Traces the full call chain to root cause before touching code. Then TDD loop: failing test, minimal fix, verify. Escapes after 5 failed iterations instead of spinning forever.
 
-### `/review-checklist`
-Post-implementation review that traces affected code paths, checks for common bug patterns (null safety, async/await, stale data, off-by-one), and verifies builds and tests pass. Auto-triggered by plan-guarded and bugfix, but can also be invoked standalone.
+### `/review-gate`
+Structured post-implementation review with pass/fail output. Traces code paths, scans for bug patterns, runs build/type/test verification, checks architectural consistency. Both build-guard and trace-fix auto-invoke this — nothing ships without passing the gate.
 
 ## Install
 
@@ -22,6 +22,11 @@ claude plugins install --from github:cukas/claude-workflow-skills
 ## Workflow
 
 ```
-/plan-guarded  →  implement one file at a time  →  /review-checklist (automatic)
-/bugfix        →  test-driven fix loop           →  /review-checklist (automatic)
+/build-guard  →  plan mode → subagent dispatch → checkpoints  →  /review-gate (automatic)
+/trace-fix    →  trace root cause → TDD loop                  →  /review-gate (automatic)
 ```
+
+## Works With
+
+- **[patrol](https://github.com/cukas/patrol)** — If installed, build-guard and trace-fix respect patrol's investigation warnings. If not installed, the skills enforce the same discipline themselves.
+- **[remembrall](https://github.com/cukas/remembrall)** — If installed, build-guard hands off context-heavy sessions automatically. If not installed, plans are saved to `docs/plans/` as files.
